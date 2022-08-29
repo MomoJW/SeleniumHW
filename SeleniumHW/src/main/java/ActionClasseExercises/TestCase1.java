@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 
 public class TestCase1 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		String key = "webdriver.chrome.driver";
 		String path = "C:\\Users\\mojw2\\OneDrive\\Desktop\\B7-Selenium\\chromedriver.exe";
@@ -35,6 +35,9 @@ public class TestCase1 {
 
 		//Get the text and display console
 		Alert alertBox = driver.switchTo().alert();
+		String alertWord = alertBox.getText();
+		System.out.println("Display Text: " + alertWord);
+		Thread.sleep(3000);
 		
 		//Click "OK"
 		alertBox.accept();
