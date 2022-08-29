@@ -21,19 +21,25 @@ public class TestCase1 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		//Navigate to http://demo.guru99.com/test/simple_context_menu.html
 		driver.get("http://demo.guru99.com/test/simple_context_menu.html");
 		WebElement right = driver.findElement(By.xpath("//*[contains(text(),'right click me')]"));
 
+		//Click Right Click me button
 		Actions rClick = new Actions(driver);
-
 		rClick.contextClick(right).build().perform();
 
+		//Click copy
 		WebElement copyText = driver.findElement(By.xpath("//*[@id=\"authentication\"]/ul/li[3]/span"));
 		copyText.click();
 
+		//Get the text and display console
 		Alert alertBox = driver.switchTo().alert();
+		
+		//Click "OK"
 		alertBox.accept();
 
+		//Close the browser
 		driver.quit();
 
 	}
