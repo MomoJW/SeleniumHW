@@ -2,16 +2,17 @@ package ActionClasseExercises;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 
 public class TestCase2 {
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws InterruptedException {
+
 		String key = "webdriver.chrome.driver";
 		String path = "C:\\Users\\mojw2\\OneDrive\\Desktop\\B7-Selenium\\chromedriver.exe";
 		System.setProperty(key, path);
@@ -20,22 +21,25 @@ public class TestCase2 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
+		// Navigate to http://demo.guru99.com/test/simple_context_menu.html
 		driver.get("http://demo.guru99.com/test/simple_context_menu.html");
-		
-		WebElement el = driver.findElement(By.xpath("//*[contains(text(),'Double-Click')]"));
 
-		String exptText = "You have done a double click";
+		// Click Double-Click Click me button
+		WebElement dButton = driver.findElement(By.xpath("//*[contains(text(),'Double-Click')]"));
+		Actions dClick = new Actions(driver);
+		dClick.doubleClick(dButton).build().perform();
 
-		Actions action = new Actions(driver);
+		// Get the text and display on console
+		Alert text = driver.switchTo().alert();
+		String alertText = text.getText();
+		System.out.println("Display Text: " + alertText);
+		Thread.sleep(3000);
 
-		action.doubleClick(el).build().perform();
+		// Click “OK”
+		text.accept();
 
-		String actText = driver.findElement(By.xpath("//*[contains(text(),'double click')]")).getText();
+		// Close the browser
+		driver.quit();
 
-		System.out.println("Exp: " + exptText);
-		System.out.println("Act: " + actText);
-
-		Assert.assertEquals(actText, exptText, "Double Click Test Failed");
-		
 	}
 }
